@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FinScan.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f547d431a62118a708a6446bf22c4b100bd01e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("FinScan.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FinScan.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

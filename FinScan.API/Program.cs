@@ -23,6 +23,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHttpClient<IIndicadoresFinanceirosService, BacenService>();
+builder.Services.AddScoped<ISimulacaoInvestimentoService, SimulacaoInvestimentoService>();
 
 var app = builder.Build();
 

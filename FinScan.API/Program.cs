@@ -1,5 +1,6 @@
 using FinScan.API.Data;
 using Microsoft.EntityFrameworkCore;
+using FinScan.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
+
+builder.Services.AddHttpClient<IIndicadoresFinanceirosService, BacenService>();
 
 var app = builder.Build();
 

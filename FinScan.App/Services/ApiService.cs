@@ -8,7 +8,7 @@ public class ApiService
 
     public ApiService()
     {
-        _httpClient = new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5000/") };
+        _httpClient = new HttpClient { BaseAddress = new Uri("https://finscan-api.onrender.com/") };
     }
 
     public async Task<List<CategorySummary>> GetDashboardDataAsync()

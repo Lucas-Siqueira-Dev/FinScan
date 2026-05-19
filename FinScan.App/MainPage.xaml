@@ -24,13 +24,13 @@
                    Padding="10" 
                    BackgroundColor="White"
                    HeightRequest="350">
-                <micro:ChartView x:Name="chartView"
+                <micro:ChartView Chart="{Binding Chart}"
                                  HorizontalOptions="FillAndExpand"
                                  VerticalOptions="FillAndExpand" />
             </Frame>
 
             <Button Text="Atualizar Dados"
-                    Clicked="OnRefreshClicked"
+                    Command="{Binding CarregarDadosCommand}"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
                     CornerRadius="12"

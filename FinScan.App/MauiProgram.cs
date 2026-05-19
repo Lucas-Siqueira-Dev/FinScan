@@ -28,6 +28,7 @@ public static class MauiProgram
         // 2. Registra as ViewModels (A Lógica das Telas)
         // AddTransient cria uma nova ViewModel sempre que a tela for aberta
         builder.Services.AddTransient<SimulacaoViewModel>();
+        builder.Services.AddTransient<MainViewModel>();
 
         // 3. Registra as Páginas (As Telas Físicas)
         builder.Services.AddTransient<MainPage>(); 

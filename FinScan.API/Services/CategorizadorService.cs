@@ -1,34 +1,45 @@
-﻿namespace FinScan.API.Services;
+﻿using Microsoft.Extensions.Configuration;
+using System.Linq;
 
-public class CategorizadorService
+namespace FinScan.API.Services
 {
-    // Task FSVS-40: Dicionário de palavras-chave base
-    private readonly Dictionary<string, string[]> _categorias = new()
+    public interface ICategorizadorService
     {
-        { "Alimentação", new[] { "ifood", "mercado", "pao", "restaurante", "mcdonalds", "burger", "confeitaria" } },
-        { "Transporte", new[] { "uber", "99app", "posto", "gasolina", "combustivel", "shell", "ipiranga" } },
-        { "Lazer", new[] { "cinema", "netflix", "spotify", "ingresso", "show", "pub", "bar" } },
-        { "Saúde", new[] { "farmacia", "drogaria", "hospital", "clinica", "unimed" } }
-    };
-    
-    // Task FSVS-41: Serviço que compara a descrição com o dicionário
-    public string Categorizar(string textoExtraido)
+        string Categorizar(string textoComprovante);
+    }
+
+    public class CategorizadorService : ICategorizadorService
     {
-        if (string.IsNullOrWhiteSpace(textoExtraido)) return "Não Categorizado";
+        private readonly IConfiguration _configuration;
 
-        string textoMinusculo = textoExtraido.ToLower();
-
-        foreach (var categoria in _categorias)
+        // Injetando o IConfiguration (DIP)
+        public CategorizadorService(IConfiguration configuration)
         {
-            foreach (var palavraChave in categoria.Value)
+            _configuration = configuration;
+        }
+
+        public string Categorizar(string textoComprovante)
+        {
+            if (string.IsNullOrWhiteSpace(textoComprovante))
+                return "Outros";
+
+            textoComprovante = textoComprovante.ToLower();
+
+            // Busca as categorias direto do appsettings.json
+            var categoriasConfig = _configuration.GetSection("CategoriasPalavrasChave").GetChildren();
+
+            foreach (var categoria in categoriasConfig)
             {
-                if (textoMinusculo.Contains(palavraChave))
+                var nomeCategoria = categoria.Key;
+                var palavrasChave = categoria.Value?.Split(',') ?? Array.Empty<string>();
+
+                if (palavrasChave.Any(palavra => textoComprovante.Contains(palavra.Trim().ToLower())))
                 {
-                    return categoria.Key;
+                    return nomeCategoria;
                 }
             }
+
+            return "Outros";
         }
-        // Task FSVS-42: Fluxo de exceção (Revisão Manual)
-        return "Não Categorizado/Revisão Manual";
     }
 }

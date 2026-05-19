@@ -11,6 +11,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        
         builder
             .UseMauiApp<App>()
             .UseMicrocharts()
@@ -37,6 +38,13 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+    
+        builder.Services.AddSingleton<ApiService>();
+        builder.Services.AddTransient<SimulacaoViewModel>();
+        builder.Services.AddTransient<SimulacaoPage>();
+        builder.Services.AddTransient<DashboardViewModel>();
+        builder.Services.AddTransient<DashboardPage>();
+ 
         return builder.Build();
     }
 }

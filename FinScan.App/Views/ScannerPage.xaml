@@ -25,13 +25,20 @@
                Margin="0, 0, 0, 30" 
                Padding="0"
                HasShadow="True">
-            <Frame WidthRequest="58" 
-                   HeightRequest="58" 
-                   CornerRadius="29" 
-                   BackgroundColor="Transparent" 
-                   BorderColor="Black" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" />
+            
+               <Frame.GestureRecognizers>
+                      <TapGestureRecognizer Tapped="TirarFoto_Tapped" />
+               </Frame.GestureRecognizers>
+
+               <Frame WidthRequest="58" 
+                      HeightRequest="58" 
+                      CornerRadius="29" 
+                      BackgroundColor="Transparent" 
+                      BorderColor="Black" 
+                      HorizontalOptions="Center" 
+                      VerticalOptions="Center"
+                      InputTransparent="True"
+                      />
         </Frame>
     </Grid>
 

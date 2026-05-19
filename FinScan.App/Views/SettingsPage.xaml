@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinScan.App.Views.SettingsPage"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView Padding="25">
+        <VerticalStackLayout Spacing="20" VerticalOptions="Center">
+            
+            <Label Text="Confirme os Dados" 
+                   FontAttributes="Bold" 
+                   FontSize="22" 
+                   HorizontalOptions="Center" 
+                   Margin="0, 0, 0, 20"/>
+
+            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Estabelecimento:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                    <Entry Text="{Binding NomeEstabelecimento}" FontAttributes="Bold" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Valor Total:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                    <Entry Text="{Binding ValorTotal, StringFormat='R$ {0:N2}'}" Keyboard="Numeric" FontAttributes="Bold" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Data da Emissão:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                    <Entry Text="{Binding DataEmissao}" FontAttributes="Bold" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Categoria:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Entry Text="{Binding CategoriaSelecionada}" FontAttributes="Bold" FontSize="16"/>
+                        <Label Grid.Column="1" Text="↓" FontAttributes="Bold" VerticalOptions="Center"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Confirmar e Salvar" 
+                    BackgroundColor="#1565C0" 
+                    TextColor="White" 
+                    CornerRadius="12" 
+                    HeightRequest="50" 
+                    FontAttributes="Bold"
+                    Margin="0, 20, 0, 0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

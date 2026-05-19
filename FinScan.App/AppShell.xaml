@@ -3,13 +3,21 @@
     x:Class="FinScan.App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:FinScan.App"
-    Shell.FlyoutBehavior="Disabled"
-    Title="FinScan.App">
+    xmlns:views="clr-namespace:FinScan.App.Views"
+    Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Home" Icon="home_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Route="DashboardPage" />
+        </Tab>
+        
+        <Tab Title="Scan" Icon="camera_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:ScannerPage}" Route="ScannerPage" />
+        </Tab>
+
+        <Tab Title="Ajustes" Icon="settings_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

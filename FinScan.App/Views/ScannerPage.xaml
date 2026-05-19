@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinScan.App.Views.ScannerPage"
+             BackgroundColor="Black"
+             Shell.NavBarIsVisible="False"> <Grid>
+        <Label Text="Pré-visualização da Câmera" 
+               TextColor="#333333" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center" />
+
+        <Frame BorderColor="White" 
+               BackgroundColor="Transparent" 
+               CornerRadius="15" 
+               Margin="40, 100, 40, 180" 
+               HasShadow="False">
+        </Frame>
+
+        <Frame WidthRequest="76" 
+               HeightRequest="76" 
+               CornerRadius="38" 
+               BackgroundColor="White" 
+               VerticalOptions="End" 
+               HorizontalOptions="Center" 
+               Margin="0, 0, 0, 30" 
+               Padding="0"
+               HasShadow="True">
+            <Frame WidthRequest="58" 
+                   HeightRequest="58" 
+                   CornerRadius="29" 
+                   BackgroundColor="Transparent" 
+                   BorderColor="Black" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" />
+        </Frame>
+    </Grid>
+
+</ContentPage>

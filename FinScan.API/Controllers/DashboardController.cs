@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FinScan.API.Services;
 using System.Linq;
+using System.Collections.Generic; // Adicionado para reconhecer o List<>
 
 namespace FinScan.API.Controllers;
 
@@ -10,9 +11,11 @@ public class DashboardController : ControllerBase
 {
     private readonly CategorizadorService _categorizadorService;
 
-    public DashboardController()
+    // A MÁGICA DA INJEÇÃO AQUI: 
+    // O .NET lê esse parâmetro e injeta o serviço automaticamente!
+    public DashboardController(CategorizadorService categorizadorService)
     {
-        _categorizadorService = new CategorizadorService();
+        _categorizadorService = categorizadorService;
     }
 
     [HttpGet("summary")]

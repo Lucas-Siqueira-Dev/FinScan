@@ -45,6 +45,8 @@ public static class MauiProgram
         builder.Services.AddTransient<SimulacaoPage>();
         builder.Services.AddTransient<DashboardViewModel>();
         builder.Services.AddTransient<DashboardPage>();
+        builder.Services.AddTransient<SettingsViewModel>();
+        builder.Services.AddTransient<SettingsPage>();
  
         return builder.Build();
     }

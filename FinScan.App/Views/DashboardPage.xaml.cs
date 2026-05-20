@@ -10,4 +10,15 @@ public partial class DashboardPage : ContentPage
         
         BindingContext = viewModel;
     }
+    
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        
+        if (BindingContext is DashboardViewModel viewModel)
+        {
+            
+            viewModel.CarregarDadosDaApi(); 
+        }
+    }
 }

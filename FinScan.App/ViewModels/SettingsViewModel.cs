@@ -1,4 +1,7 @@
-﻿namespace FinScan.App.ViewModels;
+﻿using System.Windows.Input;
+using FinScan.App.Services;
+
+namespace FinScan.App.ViewModels;
 
 [QueryProperty(nameof(NomeEstabelecimento), "NomeExt")]
 [QueryProperty(nameof(ValorTotal), "ValorExt")]
@@ -33,8 +36,29 @@ public class SettingsViewModel : BindableObject
         set { _categoriaSelecionada = value; OnPropertyChanged(); }
     }
 
+    private readonly ApiService _apiService;
+
     public SettingsViewModel()
     {
         CategoriaSelecionada = "Selecione";
+        _apiService = new ApiService(); // Conecta na API do Render
+    }
+    
+    public async Task SalvarNotaAsync()
+    {
+        // Alerta de teste de vida!
+        await Shell.Current.DisplayAlert("Aviso", "Iniciando envio para o Render...", "OK");
+
+        bool sucesso = await _apiService.SalvarNotaFiscalAsync(NomeEstabelecimento, ValorTotal, DataEmissao);
+
+        if (sucesso)
+        {
+            await Shell.Current.DisplayAlert("Sucesso", "Nota fiscal salva no banco de dados!", "OK");
+            await Shell.Current.GoToAsync("//DashboardPage");
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Erro", "Falha ao conectar com o servidor.", "OK");
+        }
     }
 }

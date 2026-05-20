@@ -43,6 +43,8 @@ public static class MauiProgram
 
     
         builder.Services.AddSingleton<ApiService>();
+        builder.Services.AddTransient<FinScan.App.ViewModels.SettingsViewModel>();
+        builder.Services.AddTransient<FinScan.App.Views.SettingsPage>();
         builder.Services.AddTransient<SimulacaoViewModel>();
         builder.Services.AddTransient<SimulacaoPage>();
         builder.Services.AddTransient<DashboardViewModel>();

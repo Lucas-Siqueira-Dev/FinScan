@@ -9,11 +9,9 @@ namespace FinScan.API.Controllers;
 [Route("api/[controller]")]
 public class DashboardController : ControllerBase
 {
-    private readonly CategorizadorService _categorizadorService;
+    private readonly ICategorizadorService _categorizadorService;
 
-    // A MÁGICA DA INJEÇÃO AQUI: 
-    // O .NET lê esse parâmetro e injeta o serviço automaticamente!
-    public DashboardController(CategorizadorService categorizadorService)
+    public DashboardController(ICategorizadorService categorizadorService)
     {
         _categorizadorService = categorizadorService;
     }

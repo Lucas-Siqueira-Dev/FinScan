@@ -1,5 +1,8 @@
 ﻿namespace FinScan.App.ViewModels;
 
+[QueryProperty(nameof(NomeEstabelecimento), "NomeExt")]
+[QueryProperty(nameof(ValorTotal), "ValorExt")]
+[QueryProperty(nameof(DataEmissao), "DataExt")]
 public class SettingsViewModel : BindableObject
 {
     private string _nomeEstabelecimento;
@@ -32,10 +35,6 @@ public class SettingsViewModel : BindableObject
 
     public SettingsViewModel()
     {
-        // Textos temporários só para testarmos se a tela está recebendo os dados
-        NomeEstabelecimento = "Aguardando leitura...";
-        ValorTotal = 0.00m;
-        DataEmissao = DateTime.Now.ToString("dd/MM/yyyy");
         CategoriaSelecionada = "Selecione";
     }
 }

@@ -29,7 +29,7 @@ public class DashboardViewModel : BindableObject
         CarregarDadosDaApi();
     }
 
-    private void CarregarDadosDaApi()
+    public void CarregarDadosDaApi()
     {
         SaldoDisponivel = 2450.00m;
 

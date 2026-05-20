@@ -28,6 +28,31 @@ public class ApiService
         
         return null; 
     }
+
+    // --- NOVA FEATURE: SALVAR NOTA FISCAL (OCR) ---
+    public async Task<bool> SalvarNotaFiscalAsync(string nome, decimal valor, string data)
+    {
+        try
+        {
+            // Monta o pacote de dados (JSON)
+            var payload = new
+            {
+                Estabelecimento = nome,
+                ValorTotal = valor,
+                DataEmissao = data
+            };
+
+            // Dispara um POST para a rota combinando BaseAddress + "api/receipts"
+            var resposta = await _httpClient.PostAsJsonAsync("api/receipts", payload);
+
+            return resposta.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao conectar na API web: {ex.Message}");
+            return false;
+        }
+    }
 }
 
 public record CategorySummary(string Category, decimal Total);

@@ -3,6 +3,7 @@ using FinScan.App.Services;
 using FinScan.App.ViewModels;
 using FinScan.App.Views;
 using Microcharts.Maui;
+using Plugin.Maui.OCR;
 
 namespace FinScan.App;
 
@@ -14,6 +15,7 @@ public static class MauiProgram
         
         builder
             .UseMauiApp<App>()
+            .UseOcr()
             .UseMicrocharts()
             .ConfigureFonts(fonts =>
             {
@@ -47,6 +49,8 @@ public static class MauiProgram
         builder.Services.AddTransient<DashboardPage>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddSingleton<OcrService>();
+        builder.Services.AddTransient<ScannerPage>();
  
         return builder.Build();
     }

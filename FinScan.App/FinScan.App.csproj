@@ -63,6 +63,7 @@
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+        <PackageReference Include="Plugin.Maui.OCR" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -71,4 +72,13 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Resources\Raw\tessdata\por.traineddata">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+    <ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+        <PackageReference Include="Xamarin.AndroidX.Collection" Version="1.4.0.4" />
+        <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.0.4" />
+    </ItemGroup>
 </Project>

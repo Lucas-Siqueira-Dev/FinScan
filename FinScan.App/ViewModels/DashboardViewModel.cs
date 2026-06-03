@@ -31,13 +31,16 @@ public class DashboardViewModel : BindableObject
 
     public void CarregarDadosDaApi()
     {
-        SaldoDisponivel = 2450.00m;
+        UltimasLeituras.Clear();
 
+       
+        SaldoDisponivel = 2450.00m;
+       
         UltimasLeituras.Add(new Leitura 
         { 
             NomeServico = "Montagem de Móveis -", 
             Valor = 2000.00m, 
-            IconeCategoria = "settings_icon.png" // Usando os ícones que você já tem
+            IconeCategoria = "settings_icon.png" 
         });
         
         UltimasLeituras.Add(new Leitura 

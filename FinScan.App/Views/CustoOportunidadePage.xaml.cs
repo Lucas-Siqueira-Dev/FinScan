@@ -2,9 +2,9 @@
 
 namespace FinScan.App.Views;
 
-public partial class SimulacaoPage : ContentPage
+public partial class CustoOportunidadePage : ContentPage
 {
-    public SimulacaoPage(SimulacaoViewModel viewModel)
+    public CustoOportunidadePage(CustoOportunidadeViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

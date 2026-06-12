@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinScan.App.Views.CustoOportunidadePage"
+             BackgroundColor="#F8F9FA"
+             Title="Custo de Oportunidade">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="25">
+
+            <!-- ══ HEADER ══ -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Custo de Oportunidade"
+                       FontAttributes="Bold"
+                       FontSize="22" />
+                <Label Text="Simule quanto seu gasto renderia no CDI"
+                       TextColor="#757575"
+                       FontSize="14" />
+            </VerticalStackLayout>
+
+            <!-- ══ CARD DE ENTRADAS ══ -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   Padding="20"
+                   BorderColor="Transparent">
+                <VerticalStackLayout Spacing="18">
+
+                    <Label Text="Dados da Simulação"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="#1565C0" />
+
+                    <!-- Valor Inicial -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Valor Inicial (R$)"
+                               FontSize="13"
+                               TextColor="#616161" />
+                        <Frame BackgroundColor="#F5F5F5"
+                               CornerRadius="10"
+                               Padding="12,0"
+                               BorderColor="#E0E0E0"
+                               HeightRequest="50">
+                            <Entry Text="{Binding ValorInicialText}"
+                                   Keyboard="Numeric"
+                                   Placeholder="Ex: 1.500,00"
+                                   PlaceholderColor="#BDBDBD"
+                                   BackgroundColor="Transparent"
+                                   VerticalOptions="Center" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Aporte Mensal -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Aporte Mensal (R$)"
+                               FontSize="13"
+                               TextColor="#616161" />
+                        <Frame BackgroundColor="#F5F5F5"
+                               CornerRadius="10"
+                               Padding="12,0"
+                               BorderColor="#E0E0E0"
+                               HeightRequest="50">
+                            <Entry Text="{Binding AporteMensalText}"
+                                   Keyboard="Numeric"
+                                   Placeholder="Ex: 200,00"
+                                   PlaceholderColor="#BDBDBD"
+                                   BackgroundColor="Transparent"
+                                   VerticalOptions="Center" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Período com Slider -->
+                    <VerticalStackLayout Spacing="6">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Text="Período"
+                                   FontSize="13"
+                                   TextColor="#616161"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding TempoMeses, StringFormat='{0} meses'}"
+                                   FontAttributes="Bold"
+                                   FontSize="13"
+                                   TextColor="#1565C0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                        <Slider Minimum="1"
+                                Maximum="60"
+                                Value="{Binding TempoMeses}"
+                                MinimumTrackColor="#1565C0"
+                                MaximumTrackColor="#E0E0E0"
+                                ThumbColor="#1565C0" />
+                        <Grid ColumnDefinitions="*, *">
+                            <Label Text="1 mês" FontSize="11" TextColor="#9E9E9E" />
+                            <Label Grid.Column="1"
+                                   Text="60 meses"
+                                   FontSize="11"
+                                   TextColor="#9E9E9E"
+                                   HorizontalOptions="End" />
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <!-- Botão Simular -->
+                    <Button Text="Simular Rendimento"
+                            Command="{Binding SimularCommand}"
+                            BackgroundColor="#1565C0"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="50"
+                            FontSize="16" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ══ LOADING ══ -->
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               Color="#1565C0"
+                               HorizontalOptions="Center" />
+
+            <!-- ══ MENSAGEM DE ERRO ══ -->
+            <Frame BackgroundColor="#FFEBEE"
+                   CornerRadius="10"
+                   Padding="15"
+                   BorderColor="#EF9A9A"
+                   IsVisible="{Binding TemErro}">
+                <Label Text="{Binding MensagemErro}"
+                       TextColor="#C62828"
+                       FontSize="13"
+                       HorizontalOptions="Center" />
+            </Frame>
+
+            <!-- ══ CARD DE RESULTADO ══ -->
+            <Frame BackgroundColor="#1565C0"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   Padding="25"
+                   BorderColor="Transparent"
+                   IsVisible="{Binding ResultadoVisivel}">
+                <VerticalStackLayout Spacing="20">
+
+                    <Label Text="Resultado da Simulação"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+
+                    <!-- Taxa Selic Utilizada -->
+                    <Frame BackgroundColor="#0D47A1"
+                           CornerRadius="10"
+                           Padding="15"
+                           BorderColor="Transparent">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Text="Taxa CDI (Selic) ao ano"
+                                   TextColor="#90CAF9"
+                                   FontSize="13"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding TaxaSelicUtilizada, StringFormat='{0:N2}% a.a.'}"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Grid de métricas 2x2 -->
+                    <Grid ColumnDefinitions="*, *"
+                          RowDefinitions="Auto, Auto"
+                          RowSpacing="12"
+                          ColumnSpacing="12">
+
+                        <!-- Total Investido -->
+                        <Frame Grid.Row="0" Grid.Column="0"
+                               BackgroundColor="#1976D2"
+                               CornerRadius="12"
+                               Padding="15"
+                               BorderColor="Transparent">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Total Investido"
+                                       TextColor="#BBDEFB"
+                                       FontSize="11" />
+                                <Label Text="{Binding ValorTotalInvestido, StringFormat='R$ {0:N2}'}"
+                                       TextColor="White"
+                                       FontAttributes="Bold"
+                                       FontSize="14" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Rendimento Bruto -->
+                        <Frame Grid.Row="0" Grid.Column="1"
+                               BackgroundColor="#1976D2"
+                               CornerRadius="12"
+                               Padding="15"
+                               BorderColor="Transparent">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Rendimento Bruto"
+                                       TextColor="#BBDEFB"
+                                       FontSize="11" />
+                                <Label Text="{Binding RendimentoBruto, StringFormat='+R$ {0:N2}'}"
+                                       TextColor="#69F0AE"
+                                       FontAttributes="Bold"
+                                       FontSize="14" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Valor Final — largura total -->
+                        <Frame Grid.Row="1" Grid.ColumnSpan="2"
+                               BackgroundColor="#0D47A1"
+                               CornerRadius="12"
+                               Padding="18"
+                               BorderColor="Transparent">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="Valor Total Final"
+                                       TextColor="#90CAF9"
+                                       FontSize="13"
+                                       HorizontalOptions="Center" />
+                                <Label Text="{Binding ValorTotalFinal, StringFormat='R$ {0:N2}'}"
+                                       TextColor="White"
+                                       FontAttributes="Bold"
+                                       FontSize="28"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                    <!-- Nota explicativa -->
+                    <Label Text="💡 Este é o valor que você estaria deixando na mesa ao realizar o gasto sem investir."
+                           TextColor="#E3F2FD"
+                           FontSize="12"
+                           HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

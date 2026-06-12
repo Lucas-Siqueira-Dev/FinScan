@@ -18,6 +18,9 @@
         <Tab Title="Ajustes" Icon="settings_icon.png">
             <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
         </Tab>
-    </TabBar>
 
+        <Tab Title="Simulador" Icon="settings_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:CustoOportunidadePage}" Route="CustoOportunidadePage" />
+        </Tab>
+    </TabBar>
 </Shell>

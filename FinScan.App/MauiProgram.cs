@@ -29,13 +29,10 @@ public static class MauiProgram
 
         // 2. Registra as ViewModels (A Lógica das Telas)
         // AddTransient cria uma nova ViewModel sempre que a tela for aberta
-        builder.Services.AddTransient<SimulacaoViewModel>();
         builder.Services.AddTransient<MainViewModel>();
 
         // 3. Registra as Páginas (As Telas Físicas)
         builder.Services.AddTransient<MainPage>(); 
-        
-        builder.Services.AddTransient<SimulacaoPage>(); 
 
 #if DEBUG
         builder.Logging.AddDebug();
@@ -45,14 +42,17 @@ public static class MauiProgram
         builder.Services.AddSingleton<ApiService>();
         builder.Services.AddTransient<FinScan.App.ViewModels.SettingsViewModel>();
         builder.Services.AddTransient<FinScan.App.Views.SettingsPage>();
-        builder.Services.AddTransient<SimulacaoViewModel>();
-        builder.Services.AddTransient<SimulacaoPage>();
         builder.Services.AddTransient<DashboardViewModel>();
         builder.Services.AddTransient<DashboardPage>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddSingleton<OcrService>();
         builder.Services.AddTransient<ScannerPage>();
+        // Registro da nova feature (Claude)
+        builder.Services.AddTransient<CustoOportunidadeViewModel>();
+        builder.Services.AddTransient<CustoOportunidadePage>();
+        // Registra o serviço Fake de simulação
+        builder.Services.AddTransient<ISimulacaoInvestimentoService, MockSimulacaoService>();
  
         return builder.Build();
     }

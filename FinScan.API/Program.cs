@@ -1,6 +1,7 @@
 using FinScan.API.Data;
 using Microsoft.EntityFrameworkCore;
 using FinScan.API.Services;
+using FinScan.API.Strategies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddHttpClient<IIndicadoresFinanceirosService, BacenService>();
 builder.Services.AddScoped<ISimulacaoInvestimentoService, SimulacaoInvestimentoService>();
 builder.Services.AddScoped<ICategorizadorService, CategorizadorService>();
 builder.Services.AddScoped<IOcrService, OcrService>();
+builder.Services.AddScoped<IRendimentoStrategy, CdiRendimentoStrategy>();
 
 var app = builder.Build();
 

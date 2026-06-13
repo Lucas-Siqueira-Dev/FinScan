@@ -32,30 +32,8 @@ public class DashboardViewModel : BindableObject
     public void CarregarDadosDaApi()
     {
         UltimasLeituras.Clear();
-
-       
+        
         SaldoDisponivel = 2450.00m;
-       
-        UltimasLeituras.Add(new Leitura 
-        { 
-            NomeServico = "Montagem de Móveis -", 
-            Valor = 2000.00m, 
-            IconeCategoria = "settings_icon.png" 
-        });
-        
-        UltimasLeituras.Add(new Leitura 
-        { 
-            NomeServico = "Limpeza da Obra -", 
-            Valor = 800.00m, 
-            IconeCategoria = "home_icon.png" 
-        });
-        
-        UltimasLeituras.Add(new Leitura 
-        { 
-            NomeServico = "Materiais de Pintura -", 
-            Valor = 2000.00m, 
-            IconeCategoria = "camera_icon.png" 
-        });
     }
 }
 

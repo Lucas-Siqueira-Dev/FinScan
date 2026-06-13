@@ -15,12 +15,8 @@
             <ShellContent ContentTemplate="{DataTemplate views:ScannerPage}" Route="ScannerPage" />
         </Tab>
 
-        <Tab Title="Ajustes" Icon="settings_icon.png">
+        <Tab Title="Registrar" Icon="settings_icon.png">
             <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
-        </Tab>
-
-        <Tab Title="Simulador" Icon="settings_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate views:CustoOportunidadePage}" Route="CustoOportunidadePage" />
         </Tab>
     </TabBar>
 </Shell>

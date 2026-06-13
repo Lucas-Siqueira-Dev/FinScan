@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using FinScan.App.Services;
+﻿using FinScan.App.Services;
 
 namespace FinScan.App.ViewModels;
 

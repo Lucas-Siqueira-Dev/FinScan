@@ -9,4 +9,9 @@ public partial class CustoOportunidadePage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+    
+    private async void OnFecharClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
 }

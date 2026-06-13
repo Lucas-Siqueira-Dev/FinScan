@@ -7,6 +7,13 @@
 
     <ScrollView Padding="20">
         <VerticalStackLayout Spacing="25">
+            
+            <Button Text="✕ Fechar" 
+                    HorizontalOptions="End" 
+                    BackgroundColor="Transparent" 
+                    TextColor="Gray" 
+                    FontAttributes="Bold"
+                    Clicked="OnFecharClicked" />
 
             <!-- ══ HEADER ══ -->
             <VerticalStackLayout Spacing="4">
@@ -42,6 +49,7 @@
                                BorderColor="#E0E0E0"
                                HeightRequest="50">
                             <Entry Text="{Binding ValorInicialText}"
+                                   IsReadOnly="True"
                                    Keyboard="Numeric"
                                    Placeholder="Ex: 1.500,00"
                                    PlaceholderColor="#BDBDBD"

@@ -8,7 +8,6 @@ namespace FinScan.API.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
         // Esta propriedade representa a tabela no banco de dados
         public DbSet<ComprovanteFiscal> Comprovantes { get; set; }
     }

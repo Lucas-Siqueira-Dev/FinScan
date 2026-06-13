@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FinScan.API.Services;
-using System.Linq;
-using System.Collections.Generic; // Adicionado para reconhecer o List<>
+using Microsoft.EntityFrameworkCore;
+using FinScan.API.Data; 
 
 namespace FinScan.API.Controllers;
 
@@ -10,27 +10,27 @@ namespace FinScan.API.Controllers;
 public class DashboardController : ControllerBase
 {
     private readonly ICategorizadorService _categorizadorService;
+    private readonly AppDbContext _dbContext;
 
-    public DashboardController(ICategorizadorService categorizadorService)
+    public DashboardController(ICategorizadorService categorizadorService, AppDbContext dbContext)
     {
         _categorizadorService = categorizadorService;
+        _dbContext = dbContext;
     }
 
     [HttpGet("summary")]
-    public IActionResult GetCategorySummary()
+    public async Task<IActionResult> GetCategorySummary()
     {
-        var mockTransactions = new List<Transaction>
-        {
-            new ("Ifood", 50.00m),
-            new ("Uber", 25.00m),
-            new ("Farmacia", 100.00m),
-            new ("Netflix", 40.00m)
-        };
+        var transacoesReais = await _dbContext.Comprovantes.ToListAsync();
 
-        var summary = mockTransactions
+        if (!transacoesReais.Any())
+            return Ok(new List<object>()); 
+
+        var summary = transacoesReais
             .Select(t => new { 
-                Categoria = _categorizadorService.Categorizar(t.Description), 
-                Valor = t.Amount 
+                // Agora puxando os nomes exatos do seu schema do Supabase
+                Categoria = _categorizadorService.Categorizar(t.NomeEstabelecimento), 
+                Valor = t.ValorTotal 
             })
             .GroupBy(x => x.Categoria)
             .Select(g => new { 
@@ -41,5 +41,3 @@ public class DashboardController : ControllerBase
         return Ok(summary);
     }
 }
-
-public record Transaction(string Description, decimal Amount);

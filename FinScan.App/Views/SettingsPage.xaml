@@ -2,44 +2,52 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinScan.App.Views.SettingsPage"
-             BackgroundColor="#F8F9FA">
-
-    <ScrollView Padding="25">
-        <VerticalStackLayout Spacing="20" VerticalOptions="Center">
+             BackgroundColor="#F4F6F8"> <ScrollView Padding="20" VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="20">
             
-            <Label Text="Confirme os Dados" 
+            <Label Text="Revisar Leitura" 
                    FontAttributes="Bold" 
-                   FontSize="22" 
+                   FontSize="24" 
+                   TextColor="#212529"
                    HorizontalOptions="Center" 
-                   Margin="0, 0, 0, 20"/>
+                   Margin="0, 10, 0, 15"/>
 
-            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+            <Frame CornerRadius="15" Padding="15" HasShadow="False" BorderColor="#E9ECEF" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Estabelecimento:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
-                    <Entry Text="{Binding NomeEstabelecimento}" FontAttributes="Bold" FontSize="16"/>
+                    <Label Text="Estabelecimento" FontSize="13" TextColor="#6C757D" FontAttributes="Bold" TextTransform="Uppercase"/>
+                    <Entry Text="{Binding NomeEstabelecimento}" FontAttributes="Bold" FontSize="16" TextColor="#212529" ClearButtonVisibility="WhileEditing"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+            <Frame CornerRadius="15" Padding="15" HasShadow="False" BorderColor="#E9ECEF" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Valor Total:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
-                    <Entry Text="{Binding ValorTotal, StringFormat='R$ {0:N2}'}" Keyboard="Numeric" FontAttributes="Bold" FontSize="16"/>
+                    <Label Text="Valor Total" FontSize="13" TextColor="#6C757D" FontAttributes="Bold" TextTransform="Uppercase"/>
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="R$ " FontAttributes="Bold" FontSize="18" TextColor="#1565C0" VerticalOptions="Center"/>
+                        <Entry Grid.Column="1" 
+                               Text="{Binding ValorTotal}" 
+                               Keyboard="Numeric" 
+                               FontAttributes="Bold" 
+                               FontSize="18" 
+                               TextColor="#212529" 
+                               ClearButtonVisibility="WhileEditing"/>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+            <Frame CornerRadius="15" Padding="15" HasShadow="False" BorderColor="#E9ECEF" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Data da Emissão:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
-                    <Entry Text="{Binding DataEmissao}" FontAttributes="Bold" FontSize="16"/>
+                    <Label Text="Data da Emissão" FontSize="13" TextColor="#6C757D" FontAttributes="Bold" TextTransform="Uppercase"/>
+                    <Entry Text="{Binding DataEmissao}" FontAttributes="Bold" FontSize="16" TextColor="#212529"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame CornerRadius="12" Padding="15" HasShadow="True" BorderColor="Transparent">
+            <Frame CornerRadius="15" Padding="15" HasShadow="False" BorderColor="#E9ECEF" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Categoria:" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                    <Label Text="Categoria Sugerida" FontSize="13" TextColor="#6C757D" FontAttributes="Bold" TextTransform="Uppercase"/>
                     <Grid ColumnDefinitions="*, Auto">
-                        <Entry Text="{Binding CategoriaSelecionada}" FontAttributes="Bold" FontSize="16"/>
-                        <Label Grid.Column="1" Text="↓" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Entry Text="{Binding CategoriaSelecionada}" FontAttributes="Bold" FontSize="16" TextColor="#212529"/>
+                        <Label Grid.Column="1" Text="▼" FontAttributes="Bold" TextColor="#ADB5BD" VerticalOptions="Center"/>
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
@@ -48,10 +56,15 @@
                     Clicked="BtnSalvar_Clicked"
                     BackgroundColor="#1565C0" 
                     TextColor="White" 
-                    CornerRadius="12" 
-                    HeightRequest="50" 
+                    CornerRadius="15" 
+                    HeightRequest="55" 
                     FontAttributes="Bold"
-                    Margin="0, 20, 0, 0"/>
+                    FontSize="16"
+                    Margin="0, 15, 0, 0">
+                <Button.Shadow>
+                    <Shadow Brush="#1565C0" Offset="0,4" Radius="8" Opacity="0.3"/>
+                </Button.Shadow>
+            </Button>
 
         </VerticalStackLayout>
     </ScrollView>

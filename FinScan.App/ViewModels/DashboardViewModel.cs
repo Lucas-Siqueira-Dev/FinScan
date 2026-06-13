@@ -1,46 +1,62 @@
 ﻿using System.Collections.ObjectModel;
+using FinScan.App.Services; // Para enxergar o ApiService
 
 namespace FinScan.App.ViewModels;
 
 public class DashboardViewModel : BindableObject
 {
-    // O MAUI "escuta" essa variável. Se o saldo mudar, a tela atualiza sozinha!
+    private readonly ApiService _apiService;
+
     private decimal _saldoDisponivel;
     public decimal SaldoDisponivel
     {
         get => _saldoDisponivel;
-        set
-        {
-            _saldoDisponivel = value;
-            OnPropertyChanged();
-        }
+        set { _saldoDisponivel = value; OnPropertyChanged(); }
     }
 
-    public string SaudacaoUsuario => "Olá Guilherme";
+    public string SaudacaoUsuario => "Olá, Lucas"; 
 
-    // ObservableCollection é uma lista especial para o front-end. 
-    // Quando você adicionar uma nota nova aqui, ela aparece na tela instantaneamente.
     public ObservableCollection<Leitura> UltimasLeituras { get; set; } = new();
 
-    public DashboardViewModel()
+    // Injetamos o ApiService no construtor
+    public DashboardViewModel(ApiService apiService)
     {
-        // Aqui simulamos a chamada da sua API. 
-        // No futuro, você vai injetar o ApiService aqui para buscar do MySQL.
-        CarregarDadosDaApi();
+        _apiService = apiService;
+        CarregarDadosAsync();
     }
 
-    public void CarregarDadosDaApi()
+    public async Task CarregarDadosAsync()
     {
         UltimasLeituras.Clear();
         
-        SaldoDisponivel = 2450.00m;
-    }
-}
+        // 1. Vai na API do Render puxar os dados do Supabase
+        var dadosDaApi = await _apiService.GetDashboardDataAsync();
 
-// Uma classe simples de Model para representar as notas fiscais escaneadas
-public class Leitura
-{
-    public string NomeServico { get; set; }
-    public decimal Valor { get; set; }
-    public string IconeCategoria { get; set; }
+        decimal totalGasto = 0;
+
+        // 2. Transforma o que veio da API no formato visual da tela
+        if (dadosDaApi != null)
+        {
+            foreach (var item in dadosDaApi)
+            {
+                UltimasLeituras.Add(new Leitura
+                {
+                    NomeServico = item.Category, // Usa a categoria que o backend gerou
+                    Valor = item.Total,
+                    IconeCategoria = "receipt_icon.png" // Ícone genérico
+                });
+                totalGasto += item.Total;
+            }
+        }
+
+        // Simula um saldo base (ex: 5000) menos os gastos reais
+        SaldoDisponivel = 5000.00m - totalGasto;
+    }
+    
+    public class Leitura
+    {
+        public string NomeServico { get; set; }
+        public decimal Valor { get; set; }
+        public string IconeCategoria { get; set; }
+    }
 }

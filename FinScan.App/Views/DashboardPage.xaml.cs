@@ -2,7 +2,7 @@
 
 namespace FinScan.App.Views;
 
-public partial class DashboardPage : ContentPage
+public partial class DashboardPage
 {
     public DashboardPage(DashboardViewModel viewModel)
     {
@@ -14,27 +14,42 @@ public partial class DashboardPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        
+
         if (BindingContext is DashboardViewModel viewModel)
         {
-            
-            viewModel.CarregarDadosDaApi(); 
+            _ = viewModel.CarregarDadosAsync(); 
         }
     }
+    
     private async void OnTransacaoTapped(object sender, TappedEventArgs e)
     {
-        // 1. Pegamos o valor da transação que foi clicada
-        if (e.Parameter is decimal valorGasto)
+        try
         {
-            // 2. Pedimos ao MAUI para construir a página do Claude com todas as injeções prontas
-            var simulacaoPage = Handler.MauiContext.Services.GetService<CustoOportunidadePage>();
+            // 1. Pegamos o valor da transação
+            if (e.Parameter is decimal valorGasto)
+            {
+                // 2. Proteção (Null Reference): Garantimos que o Handler e o Contexto existem
+                var servicos = Handler?.MauiContext?.Services;
+                if (servicos == null) return; // Se a tela não estiver pronta, aborta silenciosamente
+
+                // 3. Proteção (Null Reference): Garantimos que a página foi gerada com sucesso
+                var simulacaoPage = servicos.GetService<CustoOportunidadePage>();
+                if (simulacaoPage == null) return;
+
+                // 4. Proteção de Tipo: Pega a ViewModel com segurança usando 'is'
+                if (simulacaoPage.BindingContext is CustoOportunidadeViewModel viewModel)
+                {
+                    viewModel.ValorInicialText = Math.Abs(valorGasto).ToString("F2");
+                }
         
-            // 3. Pegamos a ViewModel dela e "injetamos" o valor do gasto, tirando o sinal de negativo
-            var viewModel = (CustoOportunidadeViewModel)simulacaoPage.BindingContext;
-            viewModel.ValorInicialText = Math.Abs(valorGasto).ToString("F2");
-        
-            // 4. Abrimos a tela como um Modal (sobreposição)
-            await Navigation.PushModalAsync(simulacaoPage);
+                // 5. Abrimos a tela como um Modal
+                await Navigation.PushModalAsync(simulacaoPage);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Se qualquer coisa bizarra acontecer, o app não crasha. Fica apenas o registro no log.
+            Console.WriteLine($"Falha silenciosa ao tentar abrir a simulação: {ex.Message}");
         }
     }
 }

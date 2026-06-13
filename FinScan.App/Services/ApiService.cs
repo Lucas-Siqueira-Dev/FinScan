@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using FinScan.App.Models;
 
 namespace FinScan.App.Services;
 
